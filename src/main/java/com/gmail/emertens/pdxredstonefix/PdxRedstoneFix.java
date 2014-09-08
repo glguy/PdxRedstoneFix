@@ -3,6 +3,7 @@ package com.gmail.emertens.pdxredstonefix;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -25,9 +26,15 @@ public class PdxRedstoneFix extends JavaPlugin implements Listener {
     @EventHandler
     void onChunkLoad(final ChunkLoadEvent event) {
         final Chunk chunk = event.getChunk();
+        final World world = chunk.getWorld();
+        final int x0 = 16*chunk.getX();
+        final int z0 = 16*chunk.getZ();
+
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                for (int y = 1; y < 256; y++) {
+
+                final int ytop = world.getHighestBlockYAt(x0+x, z0+z);
+                for (int y = 1; y <= ytop; y++) {
                     final Block block = chunk.getBlock(x, y, z);
                     switch (block.getType()) {
                         case DIODE_BLOCK_ON:
@@ -38,6 +45,7 @@ public class PdxRedstoneFix extends JavaPlugin implements Listener {
                             }
                     }
                 }
+
             }
         }
     }
