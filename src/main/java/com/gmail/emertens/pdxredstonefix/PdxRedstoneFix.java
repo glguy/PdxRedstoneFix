@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class PdxRedstoneFix extends JavaPlugin implements Listener {
 
-    static final Material TRIGGER_MATERIAL = Material.IRON_BLOCK;
+    static final Material TRIGGER_MATERIAL = Material.QUARTZ_BLOCK;
 
     @Override
     public void onEnable() {
