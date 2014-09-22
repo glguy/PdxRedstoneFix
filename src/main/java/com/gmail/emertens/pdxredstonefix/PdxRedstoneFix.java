@@ -34,15 +34,17 @@ public class PdxRedstoneFix extends JavaPlugin implements Listener {
             for (int z = 0; z < 16; z++) {
 
                 final int ytop = world.getHighestBlockYAt(x0+x, z0+z);
-                for (int y = 1; y <= ytop; y++) {
+
+                // stops one short of top because we're searching blocks
+                // underneath as triggers
+                for (int y = 0; y < ytop; y++) {
                     final Block block = chunk.getBlock(x, y, z);
-                    switch (block.getType()) {
+                    if (block.getType().equals(TRIGGER_MATERIAL)) {
+                        switch (block.getRelative(BlockFace.UP).getType()) {
                         case DIODE_BLOCK_ON:
                         case DIODE_BLOCK_OFF:
-                            final Block under = block.getRelative(BlockFace.DOWN);
-                            if (under.getType().equals(TRIGGER_MATERIAL)) {
-                                refresh(under);
-                            }
+                            refresh(block);
+                        }
                     }
                 }
 
