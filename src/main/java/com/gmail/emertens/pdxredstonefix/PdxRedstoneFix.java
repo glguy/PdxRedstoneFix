@@ -43,6 +43,12 @@ public class PdxRedstoneFix extends JavaPlugin implements Listener {
                         switch (block.getRelative(BlockFace.UP).getType()) {
                         case DIODE_BLOCK_ON:
                         case DIODE_BLOCK_OFF:
+                        case REDSTONE_COMPARATOR_ON:
+                        case REDSTONE_COMPARATOR_OFF:
+                        case PISTON_BASE:
+                        case PISTON_STICKY_BASE:
+                        case REDSTONE_TORCH_OFF:
+                        case REDSTONE_TORCH_ON:
                             refresh(block);
                         }
                     }
